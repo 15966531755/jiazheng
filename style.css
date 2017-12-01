@@ -185,7 +185,7 @@ A:hover { text-decoration: none; color:#ff0000;}
 .chengnuo_bottom2_main_right_bottom{ width:245px; height:42px;}
 
 /*foot*/
-.foot{ width:100%; height:353px; background:url(images/6.jpg) left repeat-x;}
+.foot{ width:100%;background:url(images/6.jpg) left no-repeat; height: 100%;}
 .foot_top{ width:1070px; height:155px; margin:0 auto; padding-top:22px;}
 .foot_bottom{ width:1070px; height:160px; margin:0 auto; margin-top:15px; line-height:32px;}
 .foot_top_main{ width:160px; height:155px; margin-left:53px; margin-right:53px;}
@@ -338,7 +338,7 @@ A:hover { text-decoration: none; color:#ff0000;}
 
 .ayxx{ width:100%; height:1016px; margin-top:20px; margin-bottom:20px;}
 .ayxx_main{ width:1070px; height:1016px; margin:0 auto;}
-.ayxx_main_left{ width:772px; height:980px; background:url(images/52.jpg) left no-repeat; padding-left:40px; padding-right:40px; padding-top:36px;}
+.ayxx_main_left{ width:772px;background:url(images/52.jpg) left no-repeat; height: 100%; padding-left:40px; padding-right:40px; padding-top:36px;}
 .ayxx_main_right{ width:110px; height:534px; background:url(images/53.jpg) left no-repeat; padding-left:32px; padding-right:32px; padding-top:20px;}
 .ayxx_main_right_top{ width:108px; height:19px;}
 .ayxx_main_right_bottom{ width:110px; height:515px;}
@@ -381,7 +381,7 @@ A:hover { text-decoration: none; color:#ff0000;}
 .ayxx_main_left2_bottom{ width:772px; /*height:132px;*/ margin-top:10px;}
 .ayxx_main_left3_top{ width:772px; height:36px; background:url(images/69.jpg) bottom repeat-x; color:#26a035;font-size:16px;}
 .ayxx_main_left3_bottom{ width:772px; height:63px; margin-top:10px;}
-.ayxx_main_left4_top{ width:772px; height:36px; background:url(images/69.jpg) bottom repeat-x; color:#26a035;font-size:16px;}
+.ayxx_main_left4_top{ width:772px; height:32px; background:url(images/69.jpg) bottom repeat-x; color:#26a035;font-size:16px;}
 .ayxx_main_left2_main{ width:772px; height:44px;}
 .ayxx_main_left4_bottom_main{ width:772px; height:29px; background:url(images/70.jpg) bottom repeat-x;}
 .ayxx_main_left4_bottom_main1{ width:61px; height:29px;}
@@ -392,6 +392,7 @@ A:hover { text-decoration: none; color:#ff0000;}
 .ayxx_main_left2_main_right{ width:725px; /*height:44px;*/}
 .ayxx_main_left2_main_right_logo{ width:22px;/* height:44px;*/ margin-left:15px;}
 .ayxx_main_left2_main_right_main{ /*height:44px;*/}
+.textarea{width: 100%;border:1px solid #ccc;min-height:50px;max-height:200px;overflow: auto;outline:0;}
 
 
 

@@ -327,23 +327,61 @@ function login(){
                 
                 </div>
 			</div>-->
-			<div class="ayxx_main_left4">
 			    <div class="ayxx_main_left4_top l" style="float:left;">工作履历</div>
-				<div class="ayxx_main_left4_bottom" style="overflow:hidden; float:left;">
+				<div class="textarea" contenteditable="true">
 					<? echo $row['gzll'];?>
 				</div>
-				<div class="ayxx_main_left4_evaluate_me" style="overflow:hidden; float:left;">
-					<div class="my-rating jq-stars" style="margin-left: 110px;margin-top: 7px;"></div>
-					<form name="form" id="form" action="" method="post">
-						<div class="msg" style="margin-top: 7px;">
-							<textarea name="comment" id="comment" style="width: 40%;height: 70px;max-height: 70px;max-width: 90%;min-width: 40%;min-height: 70px;margin-left: 20px;">说点什么吧...</textarea>
+				<div class="ayxx_main_left4_evaluate_me">
+				<div style="width:50%;float: left;">
+					<div class="my-rating jq-stars" style="margin-left: 110px;margin-top: 3px;"></div>
+					<form name="star_comment" id="star_comment" action="" method="post">
+						<div class="msg" style="margin-top: 4px;">
+							<textarea name="comment" id="comment" style="width: 70%max-width: 100%;min-width: 100%;overflow-y:scroll"></textarea>
+							<font style="color: red;">说的什么吧...</font>
 						</div>
 						<div class="toolbar">
-							<button class="button" type="button" style="margin-left: 65px;">发 布</button>
+							<button class="button" type="button" style="margin-left: 65px;" id="star" data-id="<?php echo $id?>">发 布</button>
 						</div>
 					</form>
 				</div>
-		 	</div>
+				<div style="width: 49%;height: 100%;float: left;overflow-y:scroll;border-left: 1px solid green;margin-left: 5px;">
+					<div id="tabs_content1" class="undis" style="margin-left: 20px;"> 
+						<!-- 评论区域开始 -->
+						<?php
+						if($cfg_comment == 'Y')
+						{
+							$dosql->Execute("SELECT * FROM `#@__usercomment` WHERE molds=4 AND aid=$id AND isshow=1 ORDER BY id DESC");
+							if($dosql->GetTotalRow() > 0)
+							{
+								echo '<ul class="commlist">';
+								while($row2 = $dosql->GetArray())
+								{
+									echo '<li><span class="uname">'.$row2['uname'].'</span><p>'.$row2['body'].'</p><span class="time">'.GetDateTime($row2['time']).'</span></li>';
+								}
+								echo '</ul>';
+							}
+							else
+							{
+								echo '该宝贝暂无评价！';
+							}
+							?>
+						<div class="commnum">
+							<span>
+							<i>
+							<?php
+								$r = $dosql->GetOne("SELECT COUNT(id) as n FROM `#@__usercomment` WHERE molds=4 AND aid=$id AND isshow=1 ORDER BY id DESC");
+								echo $r['n'];
+								?>
+							</i>条评论
+						</span>
+						</div>
+						<!-- 评论区域结束 -->
+						<?php
+						}
+						?>
+					</div>
+				</div>
+				</div>
 	    </div>
         </form>
         <? }?>
@@ -372,18 +410,126 @@ function login(){
 		</div>
 	</div>
 </div>
+<div class="foot c">
+  <div class="foot_top">
+	    <div class="foot_top_main fl">
+		    <div class="foot_top_main_top l zt3">选择服务</div>
+			<div class="foot_top_main_bottom l zt4">
+         <?php echo GetNavs(); ?>
+            </div>
+		</div>
+		 <div class="foot_top_main fl">
+		    <div class="foot_top_main_top l zt3">合作单位</div>
+			<div class="foot_top_main_bottom l zt4">
+            
+			 <?php
+	$dosql->Execute("SELECT * FROM `#@__weblink` WHERE classid=1 AND checkinfo=true ORDER BY orderid,id DESC");
+	while($row = $dosql->GetArray())
+	{
+	?>
+	<a href="<?php echo $row['linkurl']; ?>" target="_blank" rel="nofollow"><?php echo $row['webname']; ?></a><br />
+	<?php
+	}
+	?>
+            </div>
+		</div>
+		 <div class="foot_top_main fl">
+		    <div class="foot_top_main_top l zt3"> 优惠活动</div>
+			<div class="foot_top_main_bottom l zt4">
+            
+           <? 
+		   $dopage->GetPage("SELECT * FROM `#@__infoclass` WHERE (parentid=22 OR parentstr LIKE '%,22,%')  AND checkinfo=true ORDER BY orderid ASC",8);
+				while($row = $dosql->GetArray())
+				{
+					if($row['linkurl']=='' and $cfg_isreurl!='Y') $gourl = 'contact.php?cid='.$row['id'];
+					else if($cfg_isreurl=='Y') $gourl = 'contact-'.$row['id'].'-1.html';
+					else $gourl = $row['linkurl'];
+
+					
+				?>
+                <a href="<? echo $gourl;?>"><? echo $row['classname'];?></a><br />
+                
+                <? }?>
+               
+               </div>
+		</div>
+		 <div class="foot_top_main fl">
+		    <div class="foot_top_main_top l zt3">服务须知</div>
+			<div class="foot_top_main_bottom l zt4">
+             <? 
+		   $dopage->GetPage("SELECT * FROM `#@__infoclass` WHERE (parentid=23 OR parentstr LIKE '%,23,%')  AND checkinfo=true ORDER BY orderid ASC",8);
+				while($row = $dosql->GetArray())
+				{
+					if($row['linkurl']=='' and $cfg_isreurl!='Y') $gourl = 'contact.php?cid='.$row['id'];
+					else if($cfg_isreurl=='Y') $gourl = 'contact-'.$row['id'].'-1.html';
+					else $gourl = $row['linkurl'];
+
+					
+				?>
+                <a href="<? echo $gourl;?>"><? echo $row['classname'];?></a><br />
+                
+                <? }?>
+            
+            </div>
+		</div>
+	</div>
+	<div class="foot_bottom zt2">
+	  <p>
+     <a href="contact-44-1.html" rel="nofollow">关于我们</a>  |
+       <a href="contact-45-1.html" rel="nofollow">联系我们</a>  | 
+       <a href="contact-46-1.html" rel="nofollow">加入我们</a>  | 
+       
+           <a href="contact-48-1.html" rel="nofollow">法律声明</a>
+           </p>
+	  <p>阳光阿姨（ygayi.com）率先推出融在线预定、点评为一体的家政经纪服务平台，</p>
+	  <p>是家政的践行者。我们将线上的雇佣查询、预定、合同管理、雇佣评价与线下的经纪人主导的面试撮合、背景调查、雇后服务相结合，让雇主真正实现放心找阿姨、有事找经纪。</p>
+	  <p>鲁ICP备15001476号-1</p>
+	  <p>Copyright © 2014-2015 烟台良源母婴护理服务有限公司 版权所有 </p>
+	  
+	  	 <!-- 百度统计-->
+	  <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?b877323a2d224040cee94fb0ff26496f";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+  </div>
+</div>
+
 <script src="templates/default/js/jquery.star-rating-svg.js"></script>
 <script>
-	$(function(){
-		$(".my-rating").starRating({
-	        initialRating: 4,
-	        starSize: 25
-    	});
-    	$(".button").click(function(){
-    		
-    	})
+	
+	$(document).ready(function(){
+		$("#star").click(function(){
+			var star_content = $("#comment").val();
+			var id = $(this).data("id");
+			console.log(id);
+			$.post('goodsshow.php',{
+				body:star_content,
+				aid:id
+			},function(rel){
+				if(rel=='success'){
+					alert("评论成功");
+				}else{
+					alert("评论失败");
+				}
+			})
+		})
 	})
 </script>
+<?php
+	if(isset($_POST['body']) && isset($_POST['aid'])){
+		$comment_star = $_POST['body'];
+		$aid = $_POST['aid'];
+		$dosql->Execute("SELECT * FROM `#@__goods` WHERE id = " . $aid);
+		$row = $dosql->GetArray();
+		$dosql->ExecNoneQuery("INSERT INTO `#@__usercomment` (aid,molds,uid,uname,body,reply,link,time,ip,isshow) VALUES ('$aid','4','$uid','$uname','$body','$reply','$link','$time','$ip','1')");
+	}
+
+?>
 <!-- footer-->
 <?php require_once('footer.php'); ?>
 <!-- /footer-->

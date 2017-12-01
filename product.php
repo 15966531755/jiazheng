@@ -181,30 +181,26 @@ function tijiao(){
        
             </div>
         </div>
+        <style>
+    	#myjQueryContent IMG{width:20%;height: 180px;margin-left: 5px;}
+    	</style>
         <marquee onMouseOver=this.stop() onMouseOut=this.start() scrollamount=6 scrolldelay=6 direction=rtl width=68% height=100%>
-		<div class="cxda_bottom4">
+		<div class="cxda_bottom4" style="width:100%;">
 			<?php
-				$dosql->Execute("SELECT * FROM `#@__infoimg` WHERE classid=67 and orderid!=1 AND  delstate='' AND checkinfo=true ORDER BY orderid ASC LIMIT 0,12");
+				$dosql->Execute("SELECT * FROM `#@__goods` WHERE id = " . $row['id']);
 				while($row = $dosql->GetArray())
 				{
-					if($row['linkurl'] != '')$gourl = $row['linkurl'];
-					else $gourl = 'javascript:;';
 			?>
-
-			<div id="myjQuery" style="height: 180px;width:25%;float: left;">
+			<div id="myjQuery" style="height: 180px;width:100%;float: left;">
 			    <div id="myjQueryContent" style="height: 180px;width: 100%;">
-			    
-			        <div class="smask" style="height: 100%;width :100%; float: left;margin-left: 5px;"><img src="<?php echo $row['picurl']; ?>" style="width:100%; height:180px;" /></div>
-
-				
+			        <div class="smask" style="height: 100%;width :100%; float: left;margin-left: 5px;"><?php echo $row['zwpj']; ?></div>
 			    </div>
   			</div>
-
   			<?php
 				}
 			?>
-
 		</div>
+
 		</marquee>
 	</div>
 	<div class="tx">阳光阿姨诚信档案信息真实可靠，电子版和纸质版双重入档，我们为阿姨的诚信保驾护航！</div>
